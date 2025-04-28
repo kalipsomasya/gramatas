@@ -1,3 +1,58 @@
+:root {
+    --main-bg-color: rgba(254, 250, 224, 1);  
+    --header-footer-color: rgba(185, 148, 112, 1); 
+    --block-bg-color: rgba(166, 179, 125, 1);   
+    --button-bg-color: rgba(192, 199, 140, 1);  
+    --text-color: #333333;      
+}
+
 body {
-    background-color: rgba(254, 250, 224, 1);
+    background-color: var(--main-bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+
+    flex-grow: 1; 
+    padding: 20px;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 85vh;
+}
+
+.header {
+    background-color: var(--header-footer-color);
+    padding: 20px;
+    text-align: center;
+}
+
+.footer {
+    background-color: var(--header-footer-color);
+    padding: 10px;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.stat-block {
+    background-color: var(--block-bg-color);
+    padding: 20px;
+    margin: 10px;
+}
+
+a.btn-custom {
+    background-color: var(--button-bg-color);
+    border: none;
+    margin: 5px;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: var(--text-color);
+    display: inline-block;
+    border-radius: 5px;
+}
+
+a.btn-custom:hover {
+    opacity: 0.8;
 }

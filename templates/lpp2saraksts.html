@@ -3,14 +3,21 @@
 
 {% block body %}
 
-<h3>Mana grāmatu kolekcija</h3>
+<h3><a href="{{ url_for('sakums') }}">Mana grāmatu kolekcija</a></h3>
 <h1>Grāmatu saraksts</h1>
-<h3>Pievienot jaunu grāmatu</h3>
+<h3><a href="{{ url_for('pievienot') }}">Pievienot jaunu grāmatu</a></h3>
 
-<h5>Šķirot pēc:</h5>
-<p>Nosaukums</p>
-<p>Autors</p>
-<p>Žanrs</p>
-<p>Gads</p>
+
+{% if gramatas %}
+    <ul>
+        {% for gramata in gramatas %}
+            <li>
+                <strong>{{ gramata.nosaukums }}</strong> - {{ gramata.autors }} ({{ gramata.gads }}) - {{ gramata.statuss }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Nav pievienotu grāmatu.</p>
+{% endif %}
 
 {% endblock %}
