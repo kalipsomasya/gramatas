@@ -1,47 +1,51 @@
 {% extends "layout.html" %}
-
-
 {% block body %}
 
-<h3><a href="{{ url_for('sakums') }}">Mana grāmatu kolekcija</a></h3>
-<h1>Pievienot jaunu grāmatu</h1>
-<h3><a href="{{ url_for('saraksts') }}">Grāmatu saraksts</a></h3>
+<div class="form-wrapper">
+  <div class="top-bar">
+    <a href="{{ url_for('sakums') }}">Mana grāmatu kolekcija</a>
+    <h1>Pievienot jaunu grāmatu</h1>
+    <a href="{{ url_for('saraksts') }}">Grāmatu saraksts</a>
+  </div>
 
-<form action="{{ url_for('pievienot') }}" method="POST">
-    <div>
-        <label>Nosaukums</label><br>
-        <input type="text" name="nosaukums" required>
+  <form method="POST" action="{{ url_for('pievienot') }}">
+
+
+    <div class="form-row">
+      <label>Nosaukums</label>
+      <input type="text" name="nosaukums" required>
+
+      <label>Gads</label>
+      <input type="text" name="gads" required>
     </div>
+  
+    <div class="form-row">
+      <label>Autors</label>
+      <input type="text" name="autors" required>
 
-    <div>
-        <label>Gads</label><br>
-        <input type="number" name="gads" required>
+      <label>Žanrs</label>
+      <input type="text" name="zanrs" required>
     </div>
-
-    <div>
-        <label>Autors</label><br>
-        <input type="text" name="autors" required>
+  
+    <div class="form-row">
+      <label>Īsumā</label>
+      <textarea name="isuma" required></textarea>
     </div>
-
-    <div>
-        <label>Žanrs</label><br>
-        <input type="text" name="zanrs">
+  
+    <div class="form-row status-row">
+      <label>Status</label>
+      <div class="status-options">
+        <label><input type="radio" name="statuss" value="Izlasīts" required> Izlasīts✅</label>
+        <label><input type="radio" name="statuss" value="Lasu"> Lasu⏳</label>
+        <label><input type="radio" name="statuss" value="Pamests"> Pamests😴</label>
+        <label><input type="radio" name="statuss" value="Plānā"> Plānā📅</label>
+      </div>
     </div>
-
-    <div>
-        <label>Īsumā</label><br>
-        <textarea name="isuma"></textarea>
+  
+    <div class="form-row">
+      <button class="btn-save" type="submit">Saglabāt</button>
     </div>
-
-    <div>
-        <label>Statuss</label><br>
-        <input type="radio" name="statuss" value="Izlasīts"> Izlasīts✅<br>
-        <input type="radio" name="statuss" value="Lasu"> Lasu⏳<br>
-        <input type="radio" name="statuss" value="Pamests"> Pamests😴<br>
-        <input type="radio" name="statuss" value="Plānā"> Plānā📅<br>
-    </div>
-
-    <button class="btn btn-success rounded-pill px-3" type="submit">Saglabāt</button>
-</form>
+  </form>
+  
 
 {% endblock %}

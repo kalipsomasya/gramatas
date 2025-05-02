@@ -1,23 +1,50 @@
 {% extends "layout.html" %}
-
-
 {% block body %}
 
-<h3><a href="{{ url_for('sakums') }}">Mana grāmatu kolekcija</a></h3>
-<h1>Grāmatu saraksts</h1>
-<h3><a href="{{ url_for('pievienot') }}">Pievienot jaunu grāmatu</a></h3>
+<div class="form-wrapper">
+  <div class="top-bar">
+    <a href="{{ url_for('sakums') }}">Mana grāmatu kolekcija</a>
+    <h1>Grāmatu saraksts</h1>
+    <a href="{{ url_for('pievienot') }}">Pievienot jaunu grāmatu</a>
+  </div>
 
+  <div class="filter-bar">
+    <span>Šķirot pēc:</span>
+    <span class="header-cell">Nosaukums</span>
+    <span class="header-cell">Autors</span>
+    <span class="header-cell">Žanrs</span>
+    <span class="header-cell">Gads</span>
+    <span class="header-cell">Statuss</span>
+  </div>
 
-{% if gramatas %}
-    <ul>
-        {% for gramata in gramatas %}
-            <li>
-                <strong>{{ gramata.nosaukums }}</strong> - {{ gramata.autors }} ({{ gramata.gads }}) - {{ gramata.statuss }}
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>Nav pievienotu grāmatu.</p>
-{% endif %}
+  <table class="book-table">
+    <tbody>
+      {% for gr in gramatas %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ gr.nosaukums }}</td>
+        <td>{{ gr.autors }}</td>
+        <td>{{ gr.zanrs }}</td>
+        <td>{{ gr.gads }}</td>
+        <td class="truncate" title="{{ gr.isuma }}">{{ gr.isuma }}</td>
+        <td>  
+          {% if gr.statuss == 'Izlasīts' %}
+            ✅
+          {% elif gr.statuss == 'Lasu' %}
+            ⏳
+          {% elif gr.statuss == 'Pamests' %}
+            😴
+          {% elif gr.statuss == 'Plānā' %}
+            📅
+          {% endif %}
+        </td>
+        <td><a>🖋️</a></td>
+        <td><a>🗑️</a></td>
+        
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
 {% endblock %}
