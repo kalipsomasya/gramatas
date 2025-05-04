@@ -3,47 +3,47 @@
 
 <div class="form-wrapper">
   <div class="top-bar">
-    <a href="{{ url_for('sakums') }}">Mana grāmatu kolekcija</a>
-    <h1>Pievienot jaunu grāmatu</h1>
-    <a href="{{ url_for('saraksts') }}">Grāmatu saraksts</a>
+    <a href="{{ url_for('sakums') }}" class="montserrat-h">Mana grāmatu kolekcija</a>
+    <h1 class="montserrat-H">Pievienot jaunu grāmatu</h1>
+    <a href="{{ url_for('saraksts') }}" class="montserrat-h">Grāmatu saraksts</a>
   </div>
 
-  <form method="POST" action="{{ url_for('pievienot') }}">
+  <form method="POST" action="{{ url_for('pievienot') }}"> <!-- pievienošanas metode-->
 
 
     <div class="form-row">
-      <label>Nosaukums</label>
-      <input type="text" name="nosaukums" required>
+      <label class="open-sans-S">Nosaukums</label>
+      <input type="text" name="nosaukums" required>   <!-- ievades lauku nevar atstat tukšu kā arī visi lauki izņēmot gadu un īsumā visu vārdu pirmus burtis palielinās-->
 
-      <label>Gads</label>
-      <input type="text" name="gads" required>
-    </div>
+      <label class="open-sans-S">Gads</label>
+      <input type="number" name="gads" required min="1500" max="2025" step="1">
+    </div>  <!-- minimalais gads 1500 jo diezvai pusadži lasa grieķu filosofus (pasūtītais klasesbiedrene). maximalo gadu varētu uztaisīt funkciju lai katru gadu atjaunojas-->
   
     <div class="form-row">
-      <label>Autors</label>
+      <label class="open-sans-S">Autors</label>
       <input type="text" name="autors" required>
 
-      <label>Žanrs</label>
+      <label class="open-sans-S">Žanrs</label>
       <input type="text" name="zanrs" required>
     </div>
   
     <div class="form-row">
-      <label>Īsumā</label>
+      <label class="open-sans-S">Īsumā</label>
       <textarea name="isuma" required></textarea>
     </div>
   
     <div class="form-row status-row">
-      <label>Status</label>
+      <label class="open-sans-S">Status</label>  <!-- izvēle ar grāmatas statusu. var izvēleties tikai vienu. pārskatami izskatas sarakstā-->
       <div class="status-options">
-        <label><input type="radio" name="statuss" value="Izlasīts" required> Izlasīts✅</label>
-        <label><input type="radio" name="statuss" value="Lasu"> Lasu⏳</label>
-        <label><input type="radio" name="statuss" value="Pamests"> Pamests😴</label>
-        <label><input type="radio" name="statuss" value="Plānā"> Plānā📅</label>
+        <label class="open-sans-P"><input type="radio" name="statuss" value="Izlasīts" required> Izlasīts✅</label>
+        <label class="open-sans-P"><input type="radio" name="statuss" value="Lasu"> Lasu⏳</label>
+        <label class="open-sans-P"><input type="radio" name="statuss" value="Pamests"> Pamests😴</label>
+        <label class="open-sans-P"><input type="radio" name="statuss" value="Plānā"> Plānā📅</label>
       </div>
     </div>
   
     <div class="form-row">
-      <button class="btn-save" type="submit">Saglabāt</button>
+      <button class="btn-save open-sans-B" type="submit">Saglabāt</button>
     </div>
   </form>
   

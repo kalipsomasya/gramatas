@@ -2,31 +2,67 @@
 {% block body %}
 
 <div class="form-wrapper">
-  <div class="top-bar">
-    <a href="{{ url_for('sakums') }}">Mana grāmatu kolekcija</a>
-    <h1>Grāmatu saraksts</h1>
-    <a href="{{ url_for('pievienot') }}">Pievienot jaunu grāmatu</a>
+  <div class="top-bar">    <!-- galvene ar pareju uz citam lapaspusem -->
+    <a href="{{ url_for('sakums') }}" class="montserrat-h">Mana grāmatu kolekcija</a>
+    <h1 class="montserrat-H">Grāmatu saraksts</h1>
+    <a href="{{ url_for('pievienot') }}" class="montserrat-h">Pievienot jaunu grāmatu</a>
   </div>
 
-  <div class="filter-bar">
-    <span>Šķirot pēc:</span>
-    <span class="header-cell">Nosaukums</span>
-    <span class="header-cell">Autors</span>
-    <span class="header-cell">Žanrs</span>
-    <span class="header-cell">Gads</span>
-    <span class="header-cell">Statuss</span>
+  <div class="filter-bar">       <!-- filtrēšanas laukums-->
+    <span class="open-sans-S">Filtrēt pēc:</span>
+  
+    <span class="filter-link">    <!-- filtrē uzklikšķinot vienu reizi pa alfabetu un otru reize otrādi-->
+      <a href="{{ url_for('saraksts', sort='nosaukums', order='desc' if active_filters.sort == 'nosaukums' and active_filters.order == 'asc' else 'asc') }}" class="open-sans-S">
+        Nosaukums
+      </a>
+    </span>
+  
+    <span class="filter-link">    <!-- filtrē uzklikšķinot vienu reizi pa alfabetu un otru reize otrādi-->
+      <a href="{{ url_for('saraksts', sort='autors', order='desc' if active_filters.sort == 'autors' and active_filters.order == 'asc' else 'asc') }}" class="open-sans-S">
+        Autors
+      </a>
+    </span>
+  
+    <form method="get" style="display:inline;">      <!-- izkritošas izvēles ar stilu -->
+      <select name="zanrs" onchange="this.form.submit()">
+        <option value="">Žanrs</option>
+        {% for z in visi_zanri %}
+          <option value="{{ z }}" {% if z == active_filters.zanrs %}selected{% endif %}>{{ z }}</option>
+        {% endfor %}
+      </select>
+    </form>
+  
+    <form method="get" style="display:inline;">
+      <select name="gads" onchange="this.form.submit()">
+        <option value="">Gads</option>
+        {% for g in grupeti_gadi %}
+          <option value="{{ g }}" {% if g|string == active_filters.gads %}selected{% endif %}>{{ g }}–{{ g + 4 }}</option>
+        {% endfor %}
+      </select>
+    </form>
+  
+    <form method="get" style="display:inline;">
+      <select name="statuss" onchange="this.form.submit()">
+        <option value="">Statuss</option>
+        {% for s in ["Izlasīts", "Lasu", "Pamests", "Plānā"] %}
+          <option value="{{ s }}" {% if s == active_filters.statuss %}selected{% endif %}>{{ s }}</option>
+        {% endfor %}
+      </select>
+    </form>
+  
   </div>
+  
 
-  <table class="book-table">
+  <table class="book-table">    <!-- kartiņas ar ierakstiem-->
     <tbody>
       {% for gr in gramatas %}
-      <tr>
+      <tr class="open-sans-P">
         <td>{{ loop.index }}</td>
-        <td>{{ gr.nosaukums }}</td>
-        <td>{{ gr.autors }}</td>
+        <td class="open-sans-B">{{ gr.nosaukums }}</td>
+        <td class="open-sans-B">{{ gr.autors }}</td>
         <td>{{ gr.zanrs }}</td>
         <td>{{ gr.gads }}</td>
-        <td class="truncate" title="{{ gr.isuma }}">{{ gr.isuma }}</td>
+        <td class="truncate" title="{{ gr.isuma }}">{{ gr.isuma }}</td>   <!-- uzvedot virsu peli parādas pilns teksts-->
         <td>  
           {% if gr.statuss == 'Izlasīts' %}
             ✅
@@ -38,8 +74,8 @@
             📅
           {% endif %}
         </td>
-        <td><a>🖋️</a></td>
-        <td><a>🗑️</a></td>
+        <td><a href="{{ url_for('rediget', id=gr.id) }}">🖋️</a></td>  <!-- rediģēšanas poga (ved uz lapu kas lidziga formai bet ir aizpildita ar esošiem datiem kurus velas rediget)-->
+        <td><a href="{{ url_for('dzest', id=gr.id) }}" onclick="return confirm('Vai tiešām dzēst šo grāmatu?')">🗑️</a></td>     <!-- dzēš ierakstu, prasa vai tiešam dzēst pirms nodzēš-->
         
       </tr>
       {% endfor %}

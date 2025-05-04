@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="form-wrapper">   <!-- fons un atstarpes -->
+  <div class="top-bar">
+    <a href="{{ url_for('sakums') }}">Mana grāmatu kolekcija</a>
+    <h1>Rediģēt grāmatu</h1>
+    <a href="{{ url_for('saraksts') }}">Grāmatu saraksts</a>
+  </div>
+
+  <form method="POST">     <!-- datu sutīšana ar metodi POST -->
+
+    <div class="form-row">
+      <label>Nosaukums</label>
+      <input type="text" name="nosaukums" value="{{ gr.nosaukums }}" required>  <!-- ievades lauks aizpildas ar esošo vertību. lai varetu rediget datus -->
+
+      <label>Gads</label>
+      <input type="number" name="gads" value="{{ gr.gads }}" required>
+    </div>
+
+    <div class="form-row">
+      <label>Autors</label>
+      <input type="text" name="autors" value="{{ gr.autors }}" required>
+
+      <label>Žanrs</label>
+      <input type="text" name="zanrs" value="{{ gr.zanrs }}" required>
+    </div>
+
+    <div class="form-row">
+      <label>Īsumā</label>
+      <textarea name="isuma" required>{{ gr.isuma }}</textarea>
+    </div>
+
+    <div class="form-row status-row">
+      <label>Status</label>
+      <div class="status-options">
+        {% for status in ["Izlasīts", "Lasu", "Pamests", "Plānā"] %}
+          <label>
+            <input type="radio" name="statuss" value="{{ status }}" {% if gr.statuss == status %}checked{% endif %}>
+            {{ status }}
+          </label>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="form-row">
+      <button class="btn-save" type="submit">Saglabāt izmaiņas</button>
+    </div>
+
+  </form>
+</div>
+
+{% endblock %}
